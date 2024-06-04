@@ -10,6 +10,30 @@ import UIKit
 import Alamofire
 
 class LottoViewController: UIViewController {
+    private lazy var textField = {
+        let textField = UITextField()
+        textField.placeholder = "회차번호를 입력해주세요"
+        textField.layer.borderWidth = 1
+        textField.layer.cornerRadius = 4
+        textField.addTarget(
+            self,
+            action: #selector(fetchButtonTapped),
+            for: .editingDidEndOnExit
+        )
+        return textField
+    }()
+    
+    private lazy var fetchButton = {
+        let button = UIButton(configuration: .filled())
+        button.setTitle("검색", for: .normal)
+        button.addTarget(
+            self,
+            action: #selector(fetchButtonTapped),
+            for: .touchUpInside
+        )
+        return button
+    }()
+    
     private let ballViews = {
         LottoBallType.allCases.map { ballType in
             let ballView = LottoBallView()
@@ -51,11 +75,18 @@ class LottoViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         configureLayout()
-        fetchLottoData()
+        fetchLottoData(round: 1122)
     }
     
-    private func fetchLottoData() {
-        if let url = LottoResponse.url {
+    @objc private func fetchButtonTapped() {
+        guard let text = textField.text,
+              let round = Int(text)
+        else { return }
+        fetchLottoData(round: round)
+    }
+    
+    private func fetchLottoData(round: Int) {
+        if let url = LottoResponse.getURL(round: round) {
             AF.request(url)
                 .responseDecodable(
                     of: LottoResponse.self
@@ -83,12 +114,36 @@ class LottoViewController: UIViewController {
     }
     
     private func configureLayout() {
-        [ballStackView, descriptionLabel].forEach {
+        [textField, fetchButton, ballStackView, descriptionLabel].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
+        let safeArea = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
+            textField.widthAnchor.constraint(
+                equalTo: safeArea.widthAnchor,
+                multiplier: 0.8
+            ),
+            textField.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            textField.bottomAnchor.constraint(
+                equalTo: ballStackView.topAnchor,
+                constant: -40
+            ),
+            
+            fetchButton.topAnchor.constraint(
+                equalTo: textField.topAnchor,
+                constant: 4
+            ),
+            fetchButton.trailingAnchor.constraint(
+                equalTo: textField.trailingAnchor,
+                constant: -4
+            ),
+            fetchButton.bottomAnchor.constraint(
+                equalTo: textField.bottomAnchor,
+                constant: -4
+            ),
+            
             ballStackView.bottomAnchor.constraint(
                 equalTo: view.centerYAnchor,
                 constant: -10

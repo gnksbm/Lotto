@@ -39,7 +39,9 @@ struct LottoResponse: Codable {
 }
 
 extension LottoResponse {
-    static let url = URL(string: "https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo=1122")
+    static func getURL(round: Int) -> URL? {
+        URL(string: "https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo=\(round)")
+    }
     
     var attributedString: NSMutableAttributedString {
         let result = NSMutableAttributedString()
