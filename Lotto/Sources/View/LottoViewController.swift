@@ -11,7 +11,7 @@ import Alamofire
 
 class LottoViewController: UIViewController {
     private let fieldDescription = "회차번호"
-    
+    private let textFieldFont = UIFont.systemFont(ofSize: 20, weight: .medium)
     private lazy var roundPicker = UIPickerView().build { builder in
         builder.delegate(self)
             .dataSource(self)
@@ -22,9 +22,10 @@ class LottoViewController: UIViewController {
             .text(LottoAnnouncement.roundRange.last?.description)
             .inputView(roundPicker)
             .textAlignment(.center)
+            .font(textFieldFont)
             .action {
-                $0.layer.borderWidth = 1
-                $0.layer.borderColor = UIColor.tertiaryLabel.cgColor
+                $0.layer.borderWidth = 2
+                $0.layer.borderColor = UIColor.tertiarySystemFill.cgColor
                 $0.layer.cornerRadius = 4
                 $0.addTarget(
                     self,
@@ -141,15 +142,18 @@ class LottoViewController: UIViewController {
         let safeArea = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
+            textField.topAnchor.constraint(
+                equalTo: safeArea.topAnchor,
+                constant: 20
+            ),
             textField.widthAnchor.constraint(
                 equalTo: safeArea.widthAnchor,
                 multiplier: 0.9
             ),
-            textField.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
-            textField.bottomAnchor.constraint(
-                equalTo: ballStackView.topAnchor,
-                constant: -40
+            textField.heightAnchor.constraint(
+                equalToConstant: textFieldFont.lineHeight * 2
             ),
+            textField.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
             
             ballStackView.bottomAnchor.constraint(
                 equalTo: view.centerYAnchor,
