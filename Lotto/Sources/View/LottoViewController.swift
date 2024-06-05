@@ -11,10 +11,20 @@ import Alamofire
 
 class LottoViewController: UIViewController {
     private let fieldDescription = "회차번호"
+    
+    private lazy var roundPicker = UIPickerView().build { builder in
+        builder.delegate(self)
+            .dataSource(self)
+    }
+    
     private lazy var textField = UITextField().build { builder in
         builder.placeholder("\(fieldDescription)를 입력해주세요")
+            .text(LottoAnnouncement.roundRange.last?.description)
+            .inputView(roundPicker)
+            .textAlignment(.center)
             .action {
                 $0.layer.borderWidth = 1
+                $0.layer.borderColor = UIColor.tertiaryLabel.cgColor
                 $0.layer.cornerRadius = 4
                 $0.addTarget(
                     self,
@@ -22,18 +32,6 @@ class LottoViewController: UIViewController {
                     for: .editingDidEndOnExit
                 )
             }
-    }
-    
-    private lazy var fetchButton
-    = UIButton(configuration: .filled()).build { builder in
-        builder.action {
-            $0.setTitle("검색", for: .normal)
-            $0.addTarget(
-                self,
-                action: #selector(fetchButtonTapped),
-                for: .touchUpInside
-            )
-        }
     }
     
     private let ballViews = LottoBallType.allCases.map { ballType in
@@ -136,7 +134,7 @@ class LottoViewController: UIViewController {
     }
     
     private func configureLayout() {
-        [textField, fetchButton, ballStackView, descriptionLabel].forEach {
+        [textField, ballStackView, descriptionLabel].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -145,25 +143,12 @@ class LottoViewController: UIViewController {
         NSLayoutConstraint.activate([
             textField.widthAnchor.constraint(
                 equalTo: safeArea.widthAnchor,
-                multiplier: 0.8
+                multiplier: 0.9
             ),
             textField.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
             textField.bottomAnchor.constraint(
                 equalTo: ballStackView.topAnchor,
                 constant: -40
-            ),
-            
-            fetchButton.topAnchor.constraint(
-                equalTo: textField.topAnchor,
-                constant: 4
-            ),
-            fetchButton.trailingAnchor.constraint(
-                equalTo: textField.trailingAnchor,
-                constant: -4
-            ),
-            fetchButton.bottomAnchor.constraint(
-                equalTo: textField.bottomAnchor,
-                constant: -4
             ),
             
             ballStackView.bottomAnchor.constraint(
@@ -182,5 +167,37 @@ class LottoViewController: UIViewController {
                 constant: 10
             )
         ])
+    }
+}
+
+extension LottoViewController: UIPickerViewDelegate {
+    func pickerView(
+        _ pickerView: UIPickerView,
+        titleForRow row: Int,
+        forComponent component: Int
+    ) -> String? {
+        "\(row + 1)"
+    }
+    
+    func pickerView(
+        _ pickerView: UIPickerView,
+        didSelectRow row: Int,
+        inComponent component: Int
+    ) {
+        textField.text = "\(row + 1)"
+        fetchButtonTapped()
+    }
+}
+
+extension LottoViewController: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
+    }
+    
+    func pickerView(
+        _ pickerView: UIPickerView,
+        numberOfRowsInComponent component: Int
+    ) -> Int {
+        LottoAnnouncement.roundRange.count
     }
 }
