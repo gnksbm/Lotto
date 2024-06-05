@@ -22,11 +22,18 @@ struct LottoResponse: Decodable {
 }
 
 extension LottoResponse {
-    var attributedString: NSMutableAttributedString {
+    var descriptionAttrString: NSMutableAttributedString {
         let result = NSMutableAttributedString()
         result.append(descriptionPrefix)
         result.append(ammountAttribute)
         result.append(descriptionSuffix)
+        return result
+    }
+    
+    var roundAttrString: NSMutableAttributedString {
+        let result = NSMutableAttributedString()
+        result.append(roundAttribute)
+        result.append(roundAttrSuffix)
         return result
     }
     
@@ -53,6 +60,30 @@ extension LottoResponse {
             string: firstPrizeAmmount.formatted(),
             attributes: [
                 .font: UIFont.boldSystemFont(ofSize: 20)
+            ]
+        )
+    }
+    
+    private var roundFont: UIFont {
+        UIFont.boldSystemFont(ofSize: 25)
+    }
+    
+    private var roundAttribute: NSAttributedString {
+        NSAttributedString(
+            string: "\(round)회 ",
+            attributes: [
+                .font: roundFont,
+                .foregroundColor: UIColor.systemYellow
+            ]
+        )
+    }
+    
+    private var roundAttrSuffix: NSAttributedString {
+        NSAttributedString(
+            string: "당첨결과",
+            attributes: [
+                .font: roundFont,
+                .foregroundColor: UIColor.black
             ]
         )
     }

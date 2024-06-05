@@ -35,10 +35,36 @@ class LottoViewController: UIViewController {
             }
     }
     
+    private let announcementLabel = UILabel().build { builder in
+        builder.text("당첨번호 안내")
+            .font(.systemFont(ofSize: 15, weight: .medium))
+    }
+    
+    private let dateLabel = UILabel().build { builder in
+        builder.textColor(.secondaryLabel)
+            .font(.systemFont(ofSize: 13, weight: .medium))
+            .textAlignment(.right)
+    }
+    
+    private let roundLabel = UILabel().build { builder in
+        builder.textAlignment(.center)
+            .font(.systemFont(ofSize: 15, weight: .medium))
+    }
+    
+    private let separatorView = UIView().build { builder in
+        builder.backgroundColor(.secondarySystemBackground)
+    }
+    
     private let ballViews = LottoBallType.allCases.map { ballType in
         LottoBallView().build { builder in
             builder.tag(ballType.rawValue)
         }
+    }
+    
+    private let bonusLabel = UILabel().build { builder in
+        builder.text("보너스")
+            .font(.systemFont(ofSize: 14, weight: .medium))
+            .textColor(.secondaryLabel)
     }
     
     private let plusView = UIImageView().build { builder in
@@ -127,7 +153,9 @@ class LottoViewController: UIViewController {
                 winningNum: winningNum
             )
         }
-        descriptionLabel.attributedText = lotto.attributedString
+        dateLabel.text = "\(lotto.announceDate) 추첨"
+        roundLabel.attributedText = lotto.roundAttrString
+        descriptionLabel.attributedText = lotto.descriptionAttrString
     }
     
     private func configureUI() {
@@ -135,11 +163,32 @@ class LottoViewController: UIViewController {
     }
     
     private func configureLayout() {
-        [textField, ballStackView, descriptionLabel].forEach {
+        [
+            textField,
+            announcementLabel,
+            dateLabel,
+            separatorView,
+            roundLabel,
+            ballStackView,
+            descriptionLabel
+        ].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
+        
         let safeArea = view.safeAreaLayoutGuide
+        if let bonusBallView = ballStackView.arrangedSubviews.last {
+            view.addSubview(bonusLabel)
+            bonusLabel.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                bonusLabel.topAnchor.constraint(
+                    equalTo: bonusBallView.bottomAnchor,
+                    constant: 5
+                ),
+                bonusLabel.centerXAnchor.constraint(equalTo: bonusBallView.centerXAnchor),
+            ])
+        }
         
         NSLayoutConstraint.activate([
             textField.topAnchor.constraint(
@@ -155,20 +204,67 @@ class LottoViewController: UIViewController {
             ),
             textField.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
             
-            ballStackView.bottomAnchor.constraint(
-                equalTo: view.centerYAnchor,
-                constant: -10
+            announcementLabel.topAnchor.constraint(
+                equalTo: textField.bottomAnchor,
+                constant: 40
+            ),
+            announcementLabel.leadingAnchor.constraint(
+                equalTo: safeArea.leadingAnchor,
+                constant: 20
+            ),
+            
+            dateLabel.centerYAnchor.constraint(
+                equalTo: announcementLabel.centerYAnchor
+            ),
+            dateLabel.trailingAnchor.constraint(
+                equalTo: safeArea.trailingAnchor,
+                constant: -20
+            ),
+            
+            separatorView.topAnchor.constraint(
+                equalTo: announcementLabel.bottomAnchor,
+                constant: 20
+            ),
+            separatorView.leadingAnchor.constraint(
+                equalTo: announcementLabel.leadingAnchor
+            ),
+            separatorView.trailingAnchor.constraint(
+                equalTo: dateLabel.trailingAnchor
+            ),
+            separatorView.heightAnchor.constraint(
+                equalToConstant: 1
+            ),
+            
+            roundLabel.topAnchor.constraint(
+                equalTo: separatorView.bottomAnchor,
+                constant: 40
+            ),
+            roundLabel.centerXAnchor.constraint(
+                equalTo: safeArea.centerXAnchor
+            ),
+            
+            ballStackView.topAnchor.constraint(
+                equalTo: roundLabel.bottomAnchor,
+                constant: 40
+            ),
+            ballStackView.leadingAnchor.constraint(
+                equalTo: safeArea.leadingAnchor,
+                constant: 20
+            ),
+            ballStackView.trailingAnchor.constraint(
+                equalTo: safeArea.trailingAnchor,
+                constant: -20
             ),
             ballStackView.centerXAnchor.constraint(
                 equalTo: view.centerXAnchor
             ),
             
+            descriptionLabel.topAnchor.constraint(
+                equalTo: ballStackView.bottomAnchor,
+                constant: 30
+            ),
             descriptionLabel.centerXAnchor.constraint(
                 equalTo: view.centerXAnchor
-            ),
-            descriptionLabel.topAnchor.constraint(
-                equalTo: view.centerYAnchor,
-                constant: 10
             )
         ])
     }

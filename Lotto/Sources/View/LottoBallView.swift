@@ -12,6 +12,12 @@ final class LottoBallView: UIView {
         builder
             .font(.boldSystemFont(ofSize: 20))
             .textColor(.systemBackground)
+            .action {
+                $0.setContentCompressionResistancePriority(
+                    .required,
+                    for: .horizontal
+                )
+            }
     }
     
     override init(frame: CGRect) {
