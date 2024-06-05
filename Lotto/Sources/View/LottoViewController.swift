@@ -10,106 +10,128 @@ import UIKit
 import Alamofire
 
 class LottoViewController: UIViewController {
-    private lazy var textField = {
-        let textField = UITextField()
-        textField.placeholder = "회차번호를 입력해주세요"
-        textField.layer.borderWidth = 1
-        textField.layer.cornerRadius = 4
-        textField.addTarget(
-            self,
-            action: #selector(fetchButtonTapped),
-            for: .editingDidEndOnExit
-        )
-        return textField
-    }()
+    private let fieldDescription = "회차번호"
+    private lazy var textField = UITextField().build { builder in
+        builder.placeholder("\(fieldDescription)를 입력해주세요")
+            .action {
+                $0.layer.borderWidth = 1
+                $0.layer.cornerRadius = 4
+                $0.addTarget(
+                    self,
+                    action: #selector(fetchButtonTapped),
+                    for: .editingDidEndOnExit
+                )
+            }
+    }
     
-    private lazy var fetchButton = {
-        let button = UIButton(configuration: .filled())
-        button.setTitle("검색", for: .normal)
-        button.addTarget(
-            self,
-            action: #selector(fetchButtonTapped),
-            for: .touchUpInside
-        )
-        return button
-    }()
-    
-    private let ballViews = {
-        LottoBallType.allCases.map { ballType in
-            let ballView = LottoBallView()
-            ballView.tag = ballType.rawValue
-            return ballView
+    private lazy var fetchButton
+    = UIButton(configuration: .filled()).build { builder in
+        builder.action {
+            $0.setTitle("검색", for: .normal)
+            $0.addTarget(
+                self,
+                action: #selector(fetchButtonTapped),
+                for: .touchUpInside
+            )
         }
-    }()
+    }
     
-    private lazy var ballStackView = {
-        var ballViews: [UIView] = ballViews
-        let plusView = UIImageView()
-        plusView.image = UIImage(systemName: "plus")
-        plusView.preferredSymbolConfiguration
-        = UIImage.SymbolConfiguration(font: .boldSystemFont(ofSize: 20))
-        plusView.contentMode = .scaleAspectFit
-        plusView.tintColor = .systemGray
-        plusView.setContentHuggingPriority(
-            UILayoutPriority.defaultHigh,
-            for: .horizontal
-        )
-        ballViews.insert(
+    private let ballViews = LottoBallType.allCases.map { ballType in
+        LottoBallView().build { builder in
+            builder.tag(ballType.rawValue)
+        }
+    }
+    
+    private let plusView = UIImageView().build { builder in
+        builder.contentMode(.scaleAspectFit)
+            .image(UIImage(systemName: "plus"))
+            .preferredSymbolConfiguration(
+                UIImage.SymbolConfiguration(font: .boldSystemFont(ofSize: 20))
+            )
+            .tintColor(.systemGray)
+            .action {
+                $0.setContentHuggingPriority(
+                    UILayoutPriority.defaultHigh,
+                    for: .horizontal
+                )
+            }
+    }
+    
+    private lazy var arrangedSubviews = {
+        var arrangedSubviews: [UIView] = ballViews
+        arrangedSubviews.insert(
             plusView,
             at: LottoBallType.bonusNum.rawValue
         )
-        let stackView = UIStackView(arrangedSubviews: ballViews)
-        stackView.axis = .horizontal
-        stackView.spacing = 10
-        stackView.distribution = .equalSpacing
-        return stackView
+        return arrangedSubviews
     }()
     
-    private let descriptionLabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        return label
-    }()
+    private lazy var ballStackView
+    = UIStackView(arrangedSubviews: arrangedSubviews).build { builder in
+        builder.axis(.horizontal)
+            .spacing(10)
+            .distribution(.equalSpacing)
+    }
+    
+    private let descriptionLabel = UILabel().build { builder in
+        builder.textAlignment(.center)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
         configureLayout()
-        fetchLottoData(round: 1122)
+        fetchRecentlyLotto()
     }
     
-    @objc private func fetchButtonTapped() {
-        guard let text = textField.text,
-              let round = Int(text)
-        else { return }
-        fetchLottoData(round: round)
-    }
-    
-    private func fetchLottoData(round: Int) {
-        if let url = LottoResponse.getURL(round: round) {
-            AF.request(url)
-                .responseDecodable(
-                    of: LottoResponse.self
-                ) { [weak self] response in
-                    switch response.result {
-                    case .success(let result):
-                        self?.ballViews.forEach { view in
-                            let ballType = LottoBallType.allCases[view.tag]
-                            let winningNum = result[ballType]
-                            view.updateView(
-                                winningNum: winningNum
-                            )
-                        }
-                        self?.descriptionLabel.attributedText
-                        = result.attributedString
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                    }
-                }
+    @objc 
+    private func fetchButtonTapped() {
+        do {
+            let round = try NumericValidator.validateInput(
+                input: textField.text,
+                range: LottoAnnouncement.roundRange,
+                inputDescription: fieldDescription
+            )
+            fetchLottoData(round: round)
+        } catch {
+            descriptionLabel.text = error.localizedDescription
         }
     }
     
-    private func configureUI() { 
+    private func fetchRecentlyLotto() {
+        LottoAnnouncement.updateLatestInfo { [weak self] lotto in
+            self?.updateView(with: lotto)
+        }
+    }
+    
+    private func fetchLottoData(round: Int) {
+        if let url = APIURL.lottoURL(round: round) {
+            AF.request(url).responseDecodable(
+                of: LottoResponse.self
+            ) { [weak self] response in
+                guard let self else { return }
+                switch response.result {
+                case .success(let lotto):
+                    updateView(with: lotto)
+                case .failure:
+                    descriptionLabel.text = "잘못된 요청입니다"
+                }
+            }
+        }
+    }
+    
+    private func updateView(with lotto: LottoResponse) {
+        ballViews.forEach { view in
+            let ballType = LottoBallType.allCases[view.tag]
+            let winningNum = lotto[ballType]
+            view.updateView(
+                winningNum: winningNum
+            )
+        }
+        descriptionLabel.attributedText = lotto.attributedString
+    }
+    
+    private func configureUI() {
         view.backgroundColor = .systemBackground
     }
     

@@ -18,6 +18,16 @@
 		BEDE2D5F2C0F41A400700601 /* LottoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE2D5E2C0F41A400700601 /* LottoResponse.swift */; };
 		BEDE2D612C0F41CD00700601 /* LottoBallType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE2D602C0F41CD00700601 /* LottoBallType.swift */; };
 		BEDE2D632C0F41ED00700601 /* LottoBallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE2D622C0F41ED00700601 /* LottoBallView.swift */; };
+		BEDE2D662C0F52E300700601 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE2D652C0F52E300700601 /* DateFormat.swift */; };
+		BEDE2DAA2C1036C200700601 /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE2DA92C1036C200700601 /* UserDefaultsWrapper.swift */; };
+		BEDE2DAC2C10391400700601 /* Debugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE2DAB2C10391400700601 /* Debugger.swift */; };
+		BEDE2DAE2C103A5100700601 /* LottoAnnouncement.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE2DAD2C103A5100700601 /* LottoAnnouncement.swift */; };
+		BEDE2DB02C103A8000700601 /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE2DAF2C103A8000700601 /* Builder.swift */; };
+		BEDE2DB22C10471F00700601 /* Buildable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE2DB12C10471F00700601 /* Buildable.swift */; };
+		BEDE2DB62C10500A00700601 /* .gitingore in Resources */ = {isa = PBXBuildFile; fileRef = BEDE2DB52C10500A00700601 /* .gitingore */; };
+		BEDE2DB82C10502800700601 /* APIURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE2DB72C10502800700601 /* APIURL.swift */; };
+		BEDE2DBA2C105BDE00700601 /* NumericValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE2DB92C105BDE00700601 /* NumericValidator.swift */; };
+		BEDE2DBC2C105BEA00700601 /* NumericInputError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE2DBB2C105BEA00700601 /* NumericInputError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +43,16 @@
 		BEDE2D5E2C0F41A400700601 /* LottoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottoResponse.swift; sourceTree = "<group>"; };
 		BEDE2D602C0F41CD00700601 /* LottoBallType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottoBallType.swift; sourceTree = "<group>"; };
 		BEDE2D622C0F41ED00700601 /* LottoBallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottoBallView.swift; sourceTree = "<group>"; };
+		BEDE2D652C0F52E300700601 /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
+		BEDE2DA92C1036C200700601 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
+		BEDE2DAB2C10391400700601 /* Debugger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debugger.swift; sourceTree = "<group>"; };
+		BEDE2DAD2C103A5100700601 /* LottoAnnouncement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottoAnnouncement.swift; sourceTree = "<group>"; };
+		BEDE2DAF2C103A8000700601 /* Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Builder.swift; sourceTree = "<group>"; };
+		BEDE2DB12C10471F00700601 /* Buildable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buildable.swift; sourceTree = "<group>"; };
+		BEDE2DB52C10500A00700601 /* .gitingore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitingore; sourceTree = "<group>"; };
+		BEDE2DB72C10502800700601 /* APIURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIURL.swift; sourceTree = "<group>"; };
+		BEDE2DB92C105BDE00700601 /* NumericValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericValidator.swift; sourceTree = "<group>"; };
+		BEDE2DBB2C105BEA00700601 /* NumericInputError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericInputError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +70,7 @@
 		BEDE2D332C0F288200700601 = {
 			isa = PBXGroup;
 			children = (
+				BEDE2DB52C10500A00700601 /* .gitingore */,
 				BEDE2D3E2C0F288200700601 /* Lotto */,
 				BEDE2D3D2C0F288200700601 /* Products */,
 			);
@@ -77,7 +98,7 @@
 			children = (
 				BEDE2D562C0F293500700601 /* View */,
 				BEDE2D5D2C0F419F00700601 /* Model */,
-				BEDE2D5A2C0F412600700601 /* Extension */,
+				BEDE2D642C0F52D600700601 /* Utility */,
 				BEDE2D552C0F292F00700601 /* App */,
 			);
 			path = Sources;
@@ -124,9 +145,26 @@
 			isa = PBXGroup;
 			children = (
 				BEDE2D5E2C0F41A400700601 /* LottoResponse.swift */,
+				BEDE2DAD2C103A5100700601 /* LottoAnnouncement.swift */,
 				BEDE2D602C0F41CD00700601 /* LottoBallType.swift */,
+				BEDE2DB72C10502800700601 /* APIURL.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		BEDE2D642C0F52D600700601 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				BEDE2DA92C1036C200700601 /* UserDefaultsWrapper.swift */,
+				BEDE2D652C0F52E300700601 /* DateFormat.swift */,
+				BEDE2DAB2C10391400700601 /* Debugger.swift */,
+				BEDE2DAF2C103A8000700601 /* Builder.swift */,
+				BEDE2DB12C10471F00700601 /* Buildable.swift */,
+				BEDE2D5A2C0F412600700601 /* Extension */,
+				BEDE2DB92C105BDE00700601 /* NumericValidator.swift */,
+				BEDE2DBB2C105BEA00700601 /* NumericInputError.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +231,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEDE2DB62C10500A00700601 /* .gitingore in Resources */,
 				BEDE2D492C0F288400700601 /* Assets.xcassets in Resources */,
 				BEDE2D4C2C0F288400700601 /* Base in Resources */,
 				BEDE2D472C0F288200700601 /* Base in Resources */,
@@ -207,12 +246,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				BEDE2D442C0F288200700601 /* LottoViewController.swift in Sources */,
+				BEDE2DAA2C1036C200700601 /* UserDefaultsWrapper.swift in Sources */,
 				BEDE2D612C0F41CD00700601 /* LottoBallType.swift in Sources */,
+				BEDE2D662C0F52E300700601 /* DateFormat.swift in Sources */,
 				BEDE2D5F2C0F41A400700601 /* LottoResponse.swift in Sources */,
 				BEDE2D5C2C0F412B00700601 /* UIColor+.swift in Sources */,
+				BEDE2DBA2C105BDE00700601 /* NumericValidator.swift in Sources */,
 				BEDE2D402C0F288200700601 /* AppDelegate.swift in Sources */,
 				BEDE2D422C0F288200700601 /* SceneDelegate.swift in Sources */,
+				BEDE2DB82C10502800700601 /* APIURL.swift in Sources */,
+				BEDE2DAC2C10391400700601 /* Debugger.swift in Sources */,
 				BEDE2D632C0F41ED00700601 /* LottoBallView.swift in Sources */,
+				BEDE2DAE2C103A5100700601 /* LottoAnnouncement.swift in Sources */,
+				BEDE2DB02C103A8000700601 /* Builder.swift in Sources */,
+				BEDE2DB22C10471F00700601 /* Buildable.swift in Sources */,
+				BEDE2DBC2C105BEA00700601 /* NumericInputError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

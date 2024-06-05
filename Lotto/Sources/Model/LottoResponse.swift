@@ -7,7 +7,8 @@
 
 import UIKit
 
-struct LottoResponse: Codable {
+struct LottoResponse: Decodable {
+    let announceDate: String
     let firstPrizeAmmount: Int
     let firstPrizeCount: Int
     let winningNum1: Int
@@ -17,32 +18,10 @@ struct LottoResponse: Codable {
     let winningNum5: Int
     let winningNum6: Int
     let bonusNum: Int
-    
-    subscript(ballType: LottoBallType) -> Int {
-        switch ballType {
-        case .winningNum1:
-            winningNum1
-        case .winningNum2:
-            winningNum2
-        case .winningNum3:
-            winningNum3
-        case .winningNum4:
-            winningNum4
-        case .winningNum5:
-            winningNum5
-        case .winningNum6:
-            winningNum6
-        case .bonusNum:
-            bonusNum
-        }
-    }
+    let round: Int
 }
 
 extension LottoResponse {
-    static func getURL(round: Int) -> URL? {
-        URL(string: "https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo=\(round)")
-    }
-    
     var attributedString: NSMutableAttributedString {
         let result = NSMutableAttributedString()
         result.append(descriptionPrefix)
@@ -77,6 +56,25 @@ extension LottoResponse {
             ]
         )
     }
+    
+    subscript(ballType: LottoBallType) -> Int {
+        switch ballType {
+        case .winningNum1:
+            winningNum1
+        case .winningNum2:
+            winningNum2
+        case .winningNum3:
+            winningNum3
+        case .winningNum4:
+            winningNum4
+        case .winningNum5:
+            winningNum5
+        case .winningNum6:
+            winningNum6
+        case .bonusNum:
+            bonusNum
+        }
+    }
 }
 
 extension LottoResponse {
@@ -90,5 +88,7 @@ extension LottoResponse {
         case winningNum5 = "drwtNo5"
         case winningNum6 = "drwtNo6"
         case bonusNum = "bnusNo"
+        case announceDate = "drwNoDate"
+        case round = "drwNo"
     }
 }

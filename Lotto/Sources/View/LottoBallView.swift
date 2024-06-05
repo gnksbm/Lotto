@@ -8,12 +8,11 @@
 import UIKit
 
 final class LottoBallView: UIView {
-    private let numberLabel = {
-        let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 20)
-        label.textColor = .systemBackground
-        return label
-    }()
+    private let numberLabel = UILabel().build { builder in
+        builder
+            .font(.boldSystemFont(ofSize: 20))
+            .textColor(.systemBackground)
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
