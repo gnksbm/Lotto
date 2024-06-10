@@ -1,5 +1,5 @@
 //
-//  Debugger.swift
+//  Logger.swift
 //  Lotto
 //
 //  Created by gnksbm on 6/5/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Debugger {
+enum Logger {
     static func debugging(
         _ message: Any,
         file: String = #fileID,

@@ -23,7 +23,7 @@ struct UserDefaultsWrapper<T: Codable> {
             do {
                 return try JSONDecoder().decode(T.self, from: data)
             } catch {
-                Debugger.error(error)
+                Logger.error(error)
                 return defaultValue
             }
         }
@@ -32,7 +32,7 @@ struct UserDefaultsWrapper<T: Codable> {
                 let data = try JSONEncoder().encode(newValue)
                 UserDefaults.standard.set(data, forKey: key.rawValue)
             } catch {
-                Debugger.error(error)
+                Logger.error(error)
             }
         }
     }

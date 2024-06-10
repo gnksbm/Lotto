@@ -20,7 +20,7 @@
 		BEDE2D632C0F41ED00700601 /* LottoBallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE2D622C0F41ED00700601 /* LottoBallView.swift */; };
 		BEDE2D662C0F52E300700601 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE2D652C0F52E300700601 /* DateFormat.swift */; };
 		BEDE2DAA2C1036C200700601 /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE2DA92C1036C200700601 /* UserDefaultsWrapper.swift */; };
-		BEDE2DAC2C10391400700601 /* Debugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE2DAB2C10391400700601 /* Debugger.swift */; };
+		BEDE2DAC2C10391400700601 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE2DAB2C10391400700601 /* Logger.swift */; };
 		BEDE2DAE2C103A5100700601 /* LottoAnnouncement.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE2DAD2C103A5100700601 /* LottoAnnouncement.swift */; };
 		BEDE2DB02C103A8000700601 /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE2DAF2C103A8000700601 /* Builder.swift */; };
 		BEDE2DB22C10471F00700601 /* Buildable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE2DB12C10471F00700601 /* Buildable.swift */; };
@@ -45,7 +45,7 @@
 		BEDE2D622C0F41ED00700601 /* LottoBallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottoBallView.swift; sourceTree = "<group>"; };
 		BEDE2D652C0F52E300700601 /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
 		BEDE2DA92C1036C200700601 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
-		BEDE2DAB2C10391400700601 /* Debugger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debugger.swift; sourceTree = "<group>"; };
+		BEDE2DAB2C10391400700601 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		BEDE2DAD2C103A5100700601 /* LottoAnnouncement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottoAnnouncement.swift; sourceTree = "<group>"; };
 		BEDE2DAF2C103A8000700601 /* Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Builder.swift; sourceTree = "<group>"; };
 		BEDE2DB12C10471F00700601 /* Buildable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buildable.swift; sourceTree = "<group>"; };
@@ -157,7 +157,7 @@
 			children = (
 				BEDE2DA92C1036C200700601 /* UserDefaultsWrapper.swift */,
 				BEDE2D652C0F52E300700601 /* DateFormat.swift */,
-				BEDE2DAB2C10391400700601 /* Debugger.swift */,
+				BEDE2DAB2C10391400700601 /* Logger.swift */,
 				BEDE2DAF2C103A8000700601 /* Builder.swift */,
 				BEDE2DB12C10471F00700601 /* Buildable.swift */,
 				BEDE2D5A2C0F412600700601 /* Extension */,
@@ -255,7 +255,7 @@
 				BEDE2D402C0F288200700601 /* AppDelegate.swift in Sources */,
 				BEDE2D422C0F288200700601 /* SceneDelegate.swift in Sources */,
 				BEDE2DB82C10502800700601 /* APIURL.swift in Sources */,
-				BEDE2DAC2C10391400700601 /* Debugger.swift in Sources */,
+				BEDE2DAC2C10391400700601 /* Logger.swift in Sources */,
 				BEDE2D632C0F41ED00700601 /* LottoBallView.swift in Sources */,
 				BEDE2DAE2C103A5100700601 /* LottoAnnouncement.swift in Sources */,
 				BEDE2DB02C103A8000700601 /* Builder.swift in Sources */,
